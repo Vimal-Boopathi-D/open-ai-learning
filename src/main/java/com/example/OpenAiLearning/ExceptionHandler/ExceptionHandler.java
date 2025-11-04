@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionHandler {
 
-
     @org.springframework.web.bind.annotation.ExceptionHandler(NonTransientAiException.class)
     public ResponseEntity<String> handleNonTransientAiException(NonTransientAiException e) {
 
