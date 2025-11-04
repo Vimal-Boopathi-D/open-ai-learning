@@ -1,7 +1,5 @@
 package com.example.OpenAiLearning.controller;
 import org.springframework.ai.audio.transcription.AudioTranscriptionPrompt;
-import org.springframework.ai.audio.tts.TextToSpeechOptions;
-import org.springframework.ai.audio.tts.TextToSpeechPrompt;
 import org.springframework.ai.openai.OpenAiAudioSpeechModel;
 import org.springframework.ai.openai.OpenAiAudioSpeechOptions;
 import org.springframework.ai.openai.OpenAiAudioTranscriptionModel;
@@ -47,6 +45,8 @@ public class AudioTextGenController {
                 .build();
 
         SpeechPrompt prompt=new SpeechPrompt(query,options);
+
+
 
         return openAiAudioSpeechModel.call(prompt).getResult().getOutput();
     }
