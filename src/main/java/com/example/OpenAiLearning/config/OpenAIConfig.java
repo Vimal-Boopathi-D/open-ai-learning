@@ -1,5 +1,10 @@
 package com.example.OpenAiLearning.config;
 
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.ChatMemoryRepository;
+import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +21,19 @@ public class OpenAIConfig {
 
     @Bean
     public ChatClient chatClient() {
-        return ChatClient.create(openAI);
+        InMemoryChatMemoryRepository memoryRepository = new InMemoryChatMemoryRepository();
+
+        MessageWindowChatMemory memory = MessageWindowChatMemory.builder()
+                .chatMemoryRepository(memoryRepository)
+                .maxMessages(20)
+                .build();
+
+        MessageChatMemoryAdvisor memoryAdvisor = MessageChatMemoryAdvisor.builder(memory)
+                .build();
+
+        return ChatClient.builder(openAI)
+                .defaultAdvisors(memoryAdvisor)
+                .build();
     }
 }
 
