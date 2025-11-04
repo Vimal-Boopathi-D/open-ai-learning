@@ -1,4 +1,4 @@
-package com.example.OpenAiLearning.controller;
+package com.example.OpenAiLearning.config;
 
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
